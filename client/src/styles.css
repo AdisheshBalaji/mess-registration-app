@@ -1,0 +1,34 @@
+/* styles.css
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+    text-align: center;
+    width: 30vw;
+    background-color: rgb(190, 164, 214);
+    padding: 2vw 1vw;
+    border-radius: 10px 10px 0 0;
+    font-size: 2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
