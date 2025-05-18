@@ -2,13 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+require('dotenv').config(); // Load environment variables from .env file
+
 const app = express();
 app.use(express.json());
 app.use(cors()); // enable CORS so frontend can call backend
 
+const mongoURI = process.env.MONGO_URI
+
+
 // Connect to MongoDB (replace <username>, <password>, <dbname> with your details)
 mongoose.connect(
-  "mongodb+srv://adisheshbalaji:Sp4dIrl6VPTPJ3PL@cluster0.3ilm7rl.mongodb.net/",
+  mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
