@@ -18,7 +18,9 @@ export default function LoginPage(){
 
             if (email.endsWith("@iith.ac.in")){
                 alert("Welcome " + result.user.displayName);
-                navigate("/dashboard");
+                navigate("/register");
+
+                
             }else{
                 alert("Register with IITH Email")
                 auth.signOut();

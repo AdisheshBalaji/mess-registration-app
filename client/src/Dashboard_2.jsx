@@ -6,7 +6,7 @@ import { signInWithPopup, signOut } from 'firebase/auth';
 import {useNavigate} from "react-router-dom";
 
 
-export default function Dashboard(){
+export default function Dashboard_2(){
     const currentDay = new Date().toLocaleDateString("en-US", {weekday: "long"})
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function Dashboard(){
 
                 <div className="bg-white shadow-md rounded-lg p-6 max-w-xl mx-auto mb-6 flex justify-between items-center">
                     <h2 className="text-xl font-semibold">Current Plan:</h2>
-                    <button className="text-gray-600">Mess 1</button>
+                    <button className="text-gray-600">Mess 2</button>
                 </div>
                 
             </div>
