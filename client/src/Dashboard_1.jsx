@@ -17,6 +17,10 @@ export default function Dashboard_1(){
         navigate("/")
     }
 
+    const register = async () => {
+        navigate("/register")
+    }
+
     
 
     return (
@@ -112,7 +116,8 @@ export default function Dashboard_1(){
 
             <div className="flex justify-center items-center h-screen">
                 <button 
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                onClick={register}>
                     Unregister?
                 </button><br></br>
                 <button 

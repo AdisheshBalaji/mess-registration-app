@@ -11,6 +11,13 @@ router.post('/', async (req, res) => {
   }
 
   try {
+
+     // Check if the email is already registered in any mess
+    const existingRegistration = await Mess.findOne({ emails: email });
+    if (existingRegistration) {
+      return res.status(400).json({ error: `User already registered in ${existingRegistration.mess}` });
+    }
+
     // Find mess document
     let messDoc = await Mess.findOne({ mess });
 
@@ -60,6 +67,54 @@ router.get('/counts', async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+
+router.get('/emails', async (req, res) => {
+  try {
+    const mess1 = await Mess.findOne({ mess: "Mess 1" });
+    const mess2 = await Mess.findOne({ mess: "Mess 2" });
+
+    res.json({
+      "Mess 1": mess1 ? mess1.emails : [],
+      "Mess 2": mess2 ? mess2.emails : []
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+// DELETE /api/register
+router.delete('/', async (req, res) => {
+  const { email, mess } = req.body;
+
+  if (!email || !mess) {
+    return res.status(400).json({ error: "Email and mess are required for unregistration" });
+  }
+
+  try {
+    const messDoc = await Mess.findOne({ mess });
+
+    if (!messDoc) {
+      return res.status(404).json({ error: "Mess not found" });
+    }
+
+    if (!messDoc.emails.includes(email)) {
+      return res.status(400).json({ error: `User is not registered in ${mess}` });
+    }
+
+    // Remove email from mess emails array
+    messDoc.emails = messDoc.emails.filter(e => e !== email);
+    await messDoc.save();
+
+    res.json({ message: `Unregistered ${email} from ${mess}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 
 
 
