@@ -1,10 +1,10 @@
-# 🍽️ Mess Registration Web App
+#  IITH Mess Registration App
 
 A full-stack web application for mess registration and management at IIT Hyderabad. Built using the **MERN stack** (MongoDB, Express, React, Node.js) with **Firebase authentication** and **Tailwind CSS** for a clean UI.
 
 ---
 
-## 🚀 Features
+##  Features
 
 ###  Authentication
 - Google Sign-In using **Firebase Auth**.
