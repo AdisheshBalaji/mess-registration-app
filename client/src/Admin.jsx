@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+import { Pie } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const Admin = () => {
   const [counts, setCounts] = useState({ "Mess 1": 0, "Mess 2": 0 });
   const [emails, setEmails] = useState({ "Mess 1": [], "Mess 2": [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [messes, setMesses] = useState([]);
+  const [newLimits, setNewLimits] = useState({});
   const navigate = useNavigate()
 
 
@@ -42,8 +46,48 @@ const Admin = () => {
       }
     };
 
+    const fetchMesses = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/admin/messes');
+        const data = await response.json();
+        setMesses(data);
+        const initialLimits = data.reduce((acc, mess) => {
+          acc[mess._id] = mess.limit;
+          return acc;
+        }, {});
+        setNewLimits(initialLimits);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchData();
+    fetchMesses();
   }, []);
+
+  const updateLimit = async (messId) => {
+    try {
+      await fetch(`http://localhost:5000/api/admin/messes/${messId}/limit`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newLimit: newLimits[messId] }),
+      });
+      alert('Limit updated successfully');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update limit');
+    }
+  };
+
+  const pieData = {
+    labels: messes.map((mess) => mess.mess),
+    datasets: [
+      {
+        data: messes.map((mess) => mess.emails.length),
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
 
   if (loading) return <p>Loading mess data...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -86,6 +130,28 @@ const Admin = () => {
             >
               Logout
             </button>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold mb-4">Mess Limits and Details</h1>
+            <Pie data={pieData} className="mb-6" />
+            {messes.map((mess) => (
+              <div key={mess._id} className="mb-4 p-4 bg-gray-100 rounded-lg">
+                <h2 className="text-xl font-semibold">{mess.mess}</h2>
+                <p className="mb-2">Current Limit: {mess.limit}</p>
+                <input
+                  type="number"
+                  value={newLimits[mess._id] || ''}
+                  onChange={(e) => setNewLimits({ ...newLimits, [mess._id]: e.target.value })}
+                  className="border rounded-lg p-2 mr-2"
+                />
+                <button
+                  onClick={() => updateLimit(mess._id)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+                >
+                  Update Limit
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       </div>

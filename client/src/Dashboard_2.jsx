@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Dashboard_2() {
   const navigate = useNavigate();
-  const currentDay = new Date().toLocaleDateString("en-US", {
+  const currentDay = new Date().toLocaleDateString("en-IN", {
     weekday: "long",
   });
 

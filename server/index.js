@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const registerRoutes = require('./routes/register');
+const adminRoutes = require('./routes/admin'); // Import admin routes
 require('dotenv').config();
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/register', registerRoutes);
+app.use('/api/admin', adminRoutes); // Register admin routes
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {

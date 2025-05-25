@@ -37,7 +37,32 @@ router.get('/mess2', async (req, res) => {
   }
 });
 
+// Endpoint to fetch all mess data including emails and limits
+router.get('/messes', async (req, res) => {
+  try {
+    const messes = await Mess.find();
+    res.json(messes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
+// Endpoint to update the limit of a specific mess
+router.put('/messes/:messId/limit', async (req, res) => {
+  const { messId } = req.params;
+  const { newLimit } = req.body;
 
+  try {
+    const mess = await Mess.findByIdAndUpdate(messId, { limit: newLimit }, { new: true });
+    if (!mess) {
+      return res.status(404).json({ error: "Mess not found" });
+    }
+    res.json(mess);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 module.exports = router;
