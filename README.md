@@ -20,6 +20,8 @@ A full-stack web application for mess registration and management at IIT Hyderab
 ### 🛠️ Admin Portal
 - View list of registered users under each mess.
 - Admin-only access(currently handled by simple frontend)
+- Can update mess limit for each mess
+- Can view people in each mess cleanly using `chart.js`
 
 ---
 
