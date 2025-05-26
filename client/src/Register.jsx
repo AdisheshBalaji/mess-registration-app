@@ -87,7 +87,7 @@ export default function Register() {
     <div
       className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative"
       style={{
-        backgroundImage: 'url("/iith.jpeg")',
+        backgroundImage: 'url("https://adisheshbalaji.github.io/mess-registration-app/iith.jpeg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

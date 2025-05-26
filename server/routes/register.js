@@ -1,7 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const Mess = require('../models/Mess');
-const Admin = require('../models/Admin'); // Ensure the correct Admin model is imported
+const Admin = require('../models/Admin'); 
+
+const app = express();
+
+// Allow requests from your React frontend origin, or use '*' for all origins during testing
+app.use(cors({
+  origin: 'https://adisheshbalaji.github.io/mess-registration-app/'  
+}));
+
+
+app.use(express.json());
+
+app.use('/api/register', registerRoutes); 
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
 
 // POST /api/register
 router.post('/', async (req, res) => {
