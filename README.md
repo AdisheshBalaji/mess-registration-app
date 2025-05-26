@@ -17,11 +17,13 @@ A full-stack web application for mess registration and management at IIT Hyderab
 - Persistent login using Firebase auth tokens.
 - Limited users allowed per mess.
 
-### 🛠 Admin Portal
+###  Admin Portal
 - View list of registered users under each mess.
 - Admin-only access(currently handled by simple frontend)
 - Can update mess limit for each mess
 - Can view people in each mess cleanly using `chart.js`
+- Generated a set of 10 32-bit hexadecimal keys for admin login. One example is: `e95c832b0db5b3a4d73ff6492bd1742c`
+
 
 ---
 
