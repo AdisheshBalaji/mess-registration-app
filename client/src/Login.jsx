@@ -23,7 +23,7 @@ export default function LoginPage() {
         return;
       }
 
-      const res = await fetch(`http://localhost:5000/api/register/emails`);
+      const res = await fetch(`https://mess-registration-app-production.up.railway.app/api/register/emails`);
       if (!res.ok) throw new Error("Failed to fetch registration info");
       const data = await res.json();
 
@@ -53,7 +53,7 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/register/admin/validate", {
+      const res = await fetch("https://mess-registration-app-production.up.railway.app/api/register/admin/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: adminKey }),

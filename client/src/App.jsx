@@ -8,7 +8,7 @@ import Admin from "./Admin"
 
 export default function App(){
     return (
-        <Router>
+        <Router basename = "/mess-registration-app">
             <Routes>
                 <Route path = "/" element = {<Login/>}/>
                 <Route path = "/dashboard_1" element ={<Dashboard_1 />}/>

@@ -16,7 +16,7 @@ export default function Dashboard_2() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/menu?day=${currentDay}`); // Fetch all meals for the day
+        const response = await axios.get(`https://mess-registration-app-production.up.railway.app/api/menu?day=${currentDay}`); // Fetch all meals for the day
         console.log("Backend response:", response.data); // Debugging log
         const menuData = response.data.reduce((acc, item) => {
           acc[item.mealType] = item.items;
