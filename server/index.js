@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const registerRoutes = require('./routes/register');
 const adminRoutes = require('./routes/admin'); // Import admin routes
+const menuRoutes = require('./routes/menu'); // Import menu routes
 require('dotenv').config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use('/api/register', registerRoutes);
 app.use('/api/admin', adminRoutes); // Register admin routes
+app.use('/api/menu', menuRoutes); // Register menu routes
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -31,3 +33,8 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('MongoDB connection error:');
   console.error(err);
 });
+
+if (process.env.POPULATE_MENUS === 'true') {
+  const populateMenus = require('./scripts/populateSampleMenus');
+  populateMenus();
+}

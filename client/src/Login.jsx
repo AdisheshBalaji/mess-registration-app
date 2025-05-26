@@ -87,12 +87,6 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <button
-          onClick={() => navigate("/register")}
-          className="w-full py-3 mt-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition focus:ring-4 focus:ring-green-300"
-        >
-          Register / Change Mess
-        </button>
       </div>
     </div>
   );

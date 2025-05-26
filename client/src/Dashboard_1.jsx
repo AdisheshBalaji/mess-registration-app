@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Dashboard_1() {
   const navigate = useNavigate();
@@ -10,6 +11,26 @@ export default function Dashboard_1() {
   });
 
   const [openMealIndex, setOpenMealIndex] = useState(null);
+  const [menu, setMenu] = useState({});
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/menu?day=${currentDay}`); // Fetch all meals for the day
+        console.log("Backend response:", response.data); // Debugging log
+        const menuData = response.data.reduce((acc, item) => {
+          acc[item.mealType] = item.items;
+          return acc;
+        }, {});
+        console.log("Processed menu data:", menuData); // Debugging log
+        setMenu(menuData);
+      } catch (err) {
+        console.error("Error fetching menu:", err);
+      }
+    };
+
+    fetchMenu();
+  }, [currentDay]);
 
   const logout = async () => {
     await signOut(auth);
@@ -62,7 +83,15 @@ export default function Dashboard_1() {
             </div>
             {openMealIndex === index && (
               <div className="p-3 border rounded bg-gray-100 text-gray-700 transition-all duration-300">
-                ...Menu to be updated
+                {menu[meal.name] ? (
+                  <ul>
+                    {menu[meal.name].map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  "Menu not available"
+                )}
               </div>
             )}
           </div>
