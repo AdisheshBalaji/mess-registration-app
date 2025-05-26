@@ -13,7 +13,7 @@ A full-stack web application for mess registration and management at IIT Hyderab
 ###  User Portal
 - Register for **Mess 1** or **Mess 2**.
 - Switch mess by unregistering and registering again.
-- View the **daily menu** based on your mess(to be updated)
+- View the **daily menu** based on your mess
 - Persistent login using Firebase auth tokens.
 - Limited users allowed per mess.
 
