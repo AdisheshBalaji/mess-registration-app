@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const registerRoutes = require('./routes/register');
-const adminRoutes = require('./routes/admin'); // Import admin routes
+const adminRoutes = require('./routes/adminRoutes'); // Updated to use the renamed adminRoutes.js file
 const menuRoutes = require('./routes/menu'); // Import menu routes
 require('dotenv').config();
 

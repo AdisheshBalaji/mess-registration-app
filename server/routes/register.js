@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Mess = require('../models/Mess');
+const Admin = require('../models/Admin'); // Ensure the correct Admin model is imported
 
 // POST /api/register
 router.post('/', async (req, res) => {
@@ -115,7 +116,28 @@ router.delete('/', async (req, res) => {
   }
 });
 
+// POST /api/admin/validate
+router.post('/admin/validate', async (req, res) => {
+  const { key } = req.body;
 
+  if (!key) {
+    return res.status(400).json({ error: "Admin key is required" });
+  }
 
+  try {
+    console.log('Validating Admin Key:', key); // Debug log for the key being validated
+    const isAdmin = await Admin.findOne({ key });
+    console.log('Admin Key Validation Result:', isAdmin); // Debug log for the query result
+
+    if (!isAdmin) {
+      return res.status(403).json({ error: "Invalid admin key" });
+    }
+
+    res.json({ message: "Admin authenticated" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 module.exports = router;

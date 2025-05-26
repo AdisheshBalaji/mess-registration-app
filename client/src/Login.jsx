@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [adminKey, setAdminKey] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,12 +15,6 @@ export default function LoginPage() {
     try {
       const result = await signInWithPopup(auth, provider);
       const email = result.user.email;
-
-      if (email === "adishesh.balaji@gmail.com") {
-        alert("Welcome Mr. Adishesh Balaji, admin");
-        navigate("/admin");
-        return;
-      }
 
       if (!email.endsWith("@iith.ac.in")) {
         alert("Register with IITH Email");
@@ -45,6 +40,32 @@ export default function LoginPage() {
     } catch (error) {
       console.error("Login Failed", error);
       alert("Login failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAdminLogin = async () => {
+    if (!adminKey) {
+      alert("Please enter your admin key");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/register/admin/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: adminKey }),
+      });
+
+      if (!res.ok) throw new Error("Invalid admin key");
+
+      alert("Welcome Admin");
+      navigate("/admin");
+    } catch (error) {
+      console.error("Admin Login Failed", error);
+      alert("Admin login failed: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -86,6 +107,28 @@ export default function LoginPage() {
             {loading ? "Logging in..." : "Login with IITH Email"}
           </button>
         </form>
+
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Enter Admin Key"
+            value={adminKey}
+            onChange={(e) => setAdminKey(e.target.value)}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+          <button
+            onClick={handleAdminLogin}
+            disabled={loading}
+            className={`w-full py-3 rounded-lg text-white font-semibold transition 
+              ${
+                loading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+              }`}
+          >
+            {loading ? "Authenticating..." : "Admin Login"}
+          </button>
+        </div>
 
       </div>
     </div>
