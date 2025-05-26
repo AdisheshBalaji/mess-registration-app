@@ -21,7 +21,7 @@ export default function Register() {
 
     const fetchRegisteredMess = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/register/emails");
+        const res = await fetch("https://mess-registration-app-production.up.railway.app/api/register/emails");
         const data = await res.json();
 
         if (data["Mess 1"]?.includes(user.email)) setRegisteredMess("Mess 1");
@@ -40,7 +40,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
+      const res = await fetch("https://mess-registration-app-production.up.railway.app/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email, mess: messName }),
@@ -63,7 +63,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
+      const res = await fetch("https://mess-registration-app-production.up.railway.app/api/register", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email, mess: messName }),

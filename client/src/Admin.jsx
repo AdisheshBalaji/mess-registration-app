@@ -25,8 +25,8 @@ const Admin = () => {
       try {
         // Fetch both counts and emails
         const [countsRes, emailsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/register/counts'),
-          fetch('http://localhost:5000/api/register/emails')
+          fetch('https://mess-registration-app-production.up.railway.app/api/register/counts'),
+          fetch('https://mess-registration-app-production.up.railway.app/api/register/emails')
         ]);
 
         if (!countsRes.ok) throw new Error('Failed to fetch mess counts');
@@ -48,7 +48,7 @@ const Admin = () => {
 
     const fetchMesses = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/admin/messes');
+        const response = await fetch('https://mess-registration-app-production.up.railway.app/api/admin/messes');
         const data = await response.json();
         setMesses(data);
         const initialLimits = data.reduce((acc, mess) => {
@@ -67,7 +67,7 @@ const Admin = () => {
 
   const updateLimit = async (messId) => {
     try {
-      await fetch(`http://localhost:5000/api/admin/messes/${messId}/limit`, {
+      await fetch(`https://mess-registration-app-production.up.railway.app/api/admin/messes/${messId}/limit`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newLimit: newLimits[messId] }),
