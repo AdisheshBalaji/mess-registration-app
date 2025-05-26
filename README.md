@@ -17,7 +17,7 @@ A full-stack web application for mess registration and management at IIT Hyderab
 - Persistent login using Firebase auth tokens.
 - Limited users allowed per mess.
 
-### 🛠️ Admin Portal
+### 🛠 Admin Portal
 - View list of registered users under each mess.
 - Admin-only access(currently handled by simple frontend)
 - Can update mess limit for each mess
@@ -41,7 +41,17 @@ A full-stack web application for mess registration and management at IIT Hyderab
 ---
 
 
----
+
+## Deployment:  [https://adisheshbalaji.github.io/mess-registration-app/](https://adisheshbalaji.github.io/mess-registration-app/)
+
+- **Frontend**: GitHub Pages  
+- **Backend**: Render
+
+## Notes
+
+- Environment variables are set up on Render.
+- CORS is configured to allow frontend-backend communication.
+- Frontend uses the backend URL for API requests.
 
 ## 🛠️ Installation
 
