@@ -5,7 +5,7 @@ const Admin = require('../models/Admin');
 
 const app = express();
 
-// Allow requests from your React frontend origin, or use '*' for all origins during testing
+
 app.use(cors({
   origin: 'https://adisheshbalaji.github.io/mess-registration-app/'  
 }));
